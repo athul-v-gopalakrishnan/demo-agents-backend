@@ -74,7 +74,7 @@ def clear_all_pgvector_data():
 #     conn.commit()
 #     cur.close()
 #     conn.close()
-    rag_vector_store.delete()
+    return rag_vector_store.delete()
 
 # clear_all_pgvector_data()
 

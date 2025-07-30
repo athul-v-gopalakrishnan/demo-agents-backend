@@ -86,9 +86,9 @@ async def stream_rag_query(req: RagRequestModel):
 @app.post("/rag_chatbot/clear_db")
 def clear_db():
     global rag_agent
-    clear_rag_data()
+    status = clear_rag_data()
     rag_agent = build_rag_agent()
-    return {"response" : "Database Cleared."}
+    return {"response" : status}
 
 
 # ================Agreement Analyzer APIs=========================
