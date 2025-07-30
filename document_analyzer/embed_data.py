@@ -1,10 +1,8 @@
 from dotenv import load_dotenv
 from tempfile import NamedTemporaryFile
-import psycopg2
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_postgres import PGVector
 from rag_chatbot.embed_data import rag_vector_store
 
 from langchain_openai import OpenAIEmbeddings

@@ -4,7 +4,6 @@ from typing_extensions import Annotated, TypedDict
 
 from langchain.chat_models import init_chat_model
 from langchain_openai import OpenAIEmbeddings
-from langchain_postgres import PGVector
 from langchain_core.tools import tool
 from langchain_tavily import TavilySearch
 from langgraph.graph import StateGraph
@@ -17,7 +16,6 @@ from langchain_core.messages import SystemMessage,BaseMessage
 from langchain_core.runnables import RunnableConfig
 from langchain_core.prompts import ChatPromptTemplate
 
-from db_config import DB_CONNECTION_STRING
 from rag_chatbot.embed_data import rag_vector_store
 
 load_dotenv()

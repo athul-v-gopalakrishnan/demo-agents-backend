@@ -1,0 +1,11 @@
+dotenv
+fastapi
+langchain
+langchain-openai
+langchain-core
+langchain-tavily
+langchain-community
+langgraph
+numpy
+openai
+uvicorn

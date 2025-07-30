@@ -1,11 +1,10 @@
 from dotenv import load_dotenv
 from typing import Sequence
 from pydantic import BaseModel,Field
-from typing_extensions import Annotated, TypedDict, List
+from typing_extensions import Annotated, TypedDict
 
 from langchain.chat_models import init_chat_model
 from langchain_openai import OpenAIEmbeddings
-from langchain_postgres import PGVector
 from langchain_core.tools import tool
 from langchain_tavily import TavilySearch
 from langgraph.graph.message import add_messages
@@ -13,11 +12,9 @@ from langgraph.graph.message import add_messages
 from langgraph.graph import StateGraph, END
 from langgraph.prebuilt import ToolNode
 from langgraph.checkpoint.memory import MemorySaver
-from langchain_core.messages import SystemMessage,BaseMessage
-from langchain_core.runnables import RunnableConfig
+from langchain_core.messages import BaseMessage
 from langchain_core.prompts import ChatPromptTemplate,MessagesPlaceholder
 
-from db_config import DB_CONNECTION_STRING
 from rag_chatbot.embed_data import rag_vector_store
 
 load_dotenv()

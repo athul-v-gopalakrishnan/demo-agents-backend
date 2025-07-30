@@ -1,18 +1,14 @@
 from dotenv import load_dotenv
 from tempfile import NamedTemporaryFile
-import psycopg2
 
 from fastapi import UploadFile
 from typing_extensions import List
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_postgres import PGVector
 from langchain_core.vectorstores import InMemoryVectorStore
 
 from langchain_openai import OpenAIEmbeddings
-
-from db_config import DB_CONNECTION_STRING
 
 load_dotenv()
 
