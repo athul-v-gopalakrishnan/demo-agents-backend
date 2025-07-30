@@ -9,3 +9,4 @@ langgraph
 numpy
 openai
 uvicorn
+python-multipart
