@@ -24,10 +24,13 @@ app = FastAPI()
 # CORS setup
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['*'], 
+    allow_origins=['https://athul-v-gopalakrishnan.github.io/demo-agents-frontend/', 
+                   'https://athul-v-gopalakrishnan.github.io/demo-agents-frontend/rag_chatbot/main.html',
+                   'https://athul-v-gopalakrishnan.github.io/demo-agents-frontend/document_analyzer/main.html',
+                   'https://athul-v-gopalakrishnan.github.io/demo-agents-frontend/document_analyzer/analyze.html'], 
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST"],     # Add more if needed
+    allow_headers=["Content-Type", "Authorization"],
 )
 
 class RagRequestModel(BaseModel):
