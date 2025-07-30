@@ -7,8 +7,6 @@ from rag_chatbot.embed_data import rag_vector_store
 
 from langchain_openai import OpenAIEmbeddings
 
-from db_config import *
-
 load_dotenv()
 
 embedding_model = OpenAIEmbeddings(model="text-embedding-3-large")
