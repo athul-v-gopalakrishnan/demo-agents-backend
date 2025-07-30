@@ -30,6 +30,7 @@ async def load_uploaded_pdfs(uploaded_files:List[UploadFile]):
 
 
 def embed_docs(docs):
+    rag_vector_store.delete()
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=300, chunk_overlap=100, add_start_index=True, separators=["\n", ".", "!", "?", ",", " "]
     )

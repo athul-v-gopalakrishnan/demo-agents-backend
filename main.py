@@ -54,7 +54,7 @@ rag_agent = build_rag_agent()
 @app.post("/rag_chatbot/upload")
 async def upload_rag_docs(files:List[UploadFile] = File(...)):
     docs = await load_rag_documents(files)
-    rag_vector_store = embed_rag_docs(docs)
+    embed_rag_docs(docs)
     return {"message" : "Document uploaded succesfully."}
 
 @app.post("/rag_chatbot/query")
