@@ -30,7 +30,7 @@ async def load_uploaded_pdfs(uploaded_files:List[UploadFile]):
 
 
 def embed_docs(docs):
-    rag_vector_store.delete()
+    rag_vector_store.store.clear()
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=300, chunk_overlap=100, add_start_index=True, separators=["\n", ".", "!", "?", ",", " "]
     )
@@ -47,6 +47,7 @@ def embed_docs(docs):
     
 
 def clear_all_pgvector_data():
+    rag_vector_store.store.clear()
 #     conn = psycopg2.connect(
 #     dbname="rag_data",
 #     user="demo_rag",
@@ -74,7 +75,7 @@ def clear_all_pgvector_data():
 #     conn.commit()
 #     cur.close()
 #     conn.close()
-    return rag_vector_store.delete()
+    
 
 # clear_all_pgvector_data()
 

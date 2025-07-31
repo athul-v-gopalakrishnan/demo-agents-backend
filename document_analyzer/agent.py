@@ -15,7 +15,7 @@ from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.messages import BaseMessage
 from langchain_core.prompts import ChatPromptTemplate,MessagesPlaceholder
 
-from rag_chatbot.embed_data import rag_vector_store
+from document_analyzer.embed_data import analyzer_vector_store
 
 load_dotenv()
 
@@ -31,7 +31,6 @@ class Summary(BaseModel):
                        10 meaning fully advantageous with no potential risk and 0 being worst deal to get into.")
   
 embedding_model = OpenAIEmbeddings(model="text-embedding-3-large")
-memory = MemorySaver()
 
 search = TavilySearch(max_results = 3)
 search.name = "search_tool"
@@ -48,7 +47,7 @@ def retrieve(query:str):
     #         collection_name="embeddings",
     #         connection=DB_CONNECTION_STRING
     #     )
-    retriever = rag_vector_store
+    retriever = analyzer_vector_store
     retrieved_docs = retriever.similarity_search(query = query, k = 5)
     serialised = "\n\n".join(
         (f"Source : {doc.metadata}\nContent:{doc.page_content}")
@@ -107,6 +106,7 @@ def conditional_router(state:State):
     return "END"
             
 def build_agent(party:str):
+    memory = MemorySaver()
     system_message =  f"You are a legal consultant for {party}.\
                     Speak like how a real legal consultant speaks. Add extra details and insights and talk like a human does.\
                     When asked about the legal sides of the agreements they are provided with \

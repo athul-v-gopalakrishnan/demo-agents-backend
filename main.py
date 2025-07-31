@@ -86,9 +86,9 @@ async def stream_rag_query(req: RagRequestModel):
 @app.post("/rag_chatbot/clear_db")
 def clear_db():
     global rag_agent
-    status = clear_rag_data()
+    clear_rag_data()
     rag_agent = build_rag_agent()
-    return {"response" : status}
+    return {"response" : "DB cleared"}
 
 
 # ================Agreement Analyzer APIs=========================
@@ -97,8 +97,8 @@ def clear_db():
 async def upload_agreement(file:UploadFile = File(...), party: str = Form(...)):
     docs = await load_agreement(file)
     embed_agreements(docs)
-    template, agent = build_agreement_agent(party)
-    session_memory["agent"] = agent
+    template, agreement_agent = build_agreement_agent(party)
+    session_memory["agreement_agent"] = agreement_agent
     session_memory["template"] = template
     document_content = docs[0].page_content
     summary = analyze_agreement(document_content, party)
@@ -116,7 +116,7 @@ async def stream_agreement_query(req:AgreementRequestModel):
     }
 
     async def token_stream() -> AsyncGenerator[str, None]:
-        async for step in session_memory['agent'].astream(
+        async for step in session_memory['agreement_agent'].astream(
             current_state,
             config={
                 "configurable": {

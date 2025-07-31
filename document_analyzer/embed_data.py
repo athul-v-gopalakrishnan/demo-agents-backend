@@ -3,13 +3,14 @@ from tempfile import NamedTemporaryFile
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from rag_chatbot.embed_data import rag_vector_store
+from langchain_core.vectorstores import InMemoryVectorStore
 
 from langchain_openai import OpenAIEmbeddings
 
 load_dotenv()
 
 embedding_model = OpenAIEmbeddings(model="text-embedding-3-large")
+analyzer_vector_store = InMemoryVectorStore(embedding=embedding_model)
 
 async def load_uploaded_pdfs(uploaded_file):
     docs = ""
@@ -24,7 +25,7 @@ async def load_uploaded_pdfs(uploaded_file):
 
 
 def embed_docs(docs):
-    rag_vector_store.delete()
+    analyzer_vector_store.store.clear()
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=300, chunk_overlap=100, add_start_index=True, separators=["\n", ".", "!", "?", ",", " "]
     )
@@ -36,7 +37,7 @@ def embed_docs(docs):
     #     collection_name="embeddings",
     #     connection=DB_CONNECTION_STRING
     #     )
-    rag_vector_store.add_documents(documents=all_splits)
+    analyzer_vector_store.add_documents(documents=all_splits)
     
 
 def clear_all_pgvector_data():
@@ -67,7 +68,7 @@ def clear_all_pgvector_data():
 #     conn.commit()
 #     cur.close()
 #     conn.close()
-    rag_vector_store.delete()
+    analyzer_vector_store.store.clear()
 
 if __name__ == "__main__":
     clear_all_pgvector_data()   

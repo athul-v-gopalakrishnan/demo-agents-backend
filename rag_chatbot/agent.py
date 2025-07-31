@@ -31,7 +31,7 @@ search_node = ToolNode(tools=[search], name= "search_node")
 
 llm = init_chat_model("openai:gpt-4.1")
 embedding_model = OpenAIEmbeddings(model="text-embedding-3-large")
-memory = MemorySaver()
+
 prompt_template = ChatPromptTemplate.from_template(
     "You are a chatbot assistant. You can search the web if needed using the 'search_node'. Use the tool 'retrieve' when the information is insufficient.{query}"
 )
@@ -110,6 +110,7 @@ def generate(state:State):
     return {"messages" : [response]}
 
 def build_agent():
+    memory = MemorySaver()
     graph_builder = StateGraph(State)
     graph_builder.add_node(query_or_respond)
     graph_builder.add_node(search_node)
@@ -130,5 +131,5 @@ def build_agent():
     graph_builder.add_edge("search_node","generate")
     graph_builder.add_edge("generate", END)
 
-    graph = graph_builder.compile(checkpointer = memory)
+    graph = graph_builder.compile(checkpointer=memory)#checkpointer = memry
     return graph
